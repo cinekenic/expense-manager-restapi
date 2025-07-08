@@ -12,25 +12,30 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
-@Table(name = "tbl_expense")
+@Table(name = "tbl_expenses")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class ExpenseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(unique = true, nullable = false)
+    @Column(name = "expense_id", unique = true, nullable = false)
     private String expenseId;
+
     private String name;
+
+    @Column(name = "note")
     private String description;
+
     private String category;
     private Date date;
     private BigDecimal amount;
+
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
+
     @CreationTimestamp
+    @Column(name = "updated_at")
     private Timestamp updatedAt;
 }
