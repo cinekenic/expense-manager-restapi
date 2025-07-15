@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class ExpenseResponse {
-    private String expenceId;
+    private String expenseId;
     private String name;
     private String description;
     private String category;
