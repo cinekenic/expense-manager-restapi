@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -19,7 +20,9 @@ import java.util.Date;
 @Builder
 public class ExpenseEntity {
     @Id
-    @Column(name = "expense_id", unique = true, nullable = false)
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "expense_id", nullable = false, updatable = false, columnDefinition = "VARCHAR(36)")
     private String expenseId;
 
     private String name;
