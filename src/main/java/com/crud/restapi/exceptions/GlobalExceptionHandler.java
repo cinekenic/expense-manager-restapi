@@ -1,4 +1,4 @@
-package com.crud.restapi.exeptions;
+package com.crud.restapi.exceptions;
 
 import com.crud.restapi.io.ErrorObject;
 import lombok.extern.slf4j.Slf4j;

@@ -2,7 +2,7 @@ package com.crud.restapi.service.impl;
 
 import com.crud.restapi.dto.ExpenseDTO;
 import com.crud.restapi.entity.ExpenseEntity;
-import com.crud.restapi.exeptions.ResourceNotFoundException;
+import com.crud.restapi.exceptions.ResourceNotFoundException;
 import com.crud.restapi.repository.ExpenseRepository;
 import com.crud.restapi.service.ExpenseService;
 import lombok.RequiredArgsConstructor;

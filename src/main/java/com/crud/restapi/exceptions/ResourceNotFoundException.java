@@ -1,4 +1,4 @@
-package com.crud.restapi.exeptions;
+package com.crud.restapi.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
 
