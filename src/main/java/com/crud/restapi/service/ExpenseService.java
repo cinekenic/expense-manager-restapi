@@ -12,4 +12,13 @@ public interface ExpenseService {
  * @return list
  * */
     List<ExpenseDTO> getAllExpenses();
+
+    /**
+     * It will fetch the single expenses details from database
+     * @param expenseId
+     * @return ExpenseDTO
+     * @return list
+     * */
+
+    ExpenseDTO getExpenseByExpenseId(String expenseId);
 }
