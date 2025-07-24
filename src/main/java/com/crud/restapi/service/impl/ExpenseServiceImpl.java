@@ -80,6 +80,18 @@ public class ExpenseServiceImpl implements ExpenseService {
         return mapToExpenseDTO(newExpenseEntity);
     }
 
+    @Override
+    public ExpenseDTO updateExpenseDetails(ExpenseDTO expenseDTO, String expenseId) {
+       ExpenseEntity existingExpense = getExpenseEntity(expenseId);
+        ExpenseEntity updateExpenseEntity = mapToExpenseEntity(expenseDTO);
+        updateExpenseEntity.setExpenseId(existingExpense.getExpenseId());
+        updateExpenseEntity.setCreatedAt(existingExpense.getCreatedAt());
+        updateExpenseEntity.setUpdatedAt(existingExpense.getUpdatedAt());
+        updateExpenseEntity = expenseRepository.save(updateExpenseEntity);
+        log.info("Printing the new expense entity details {}", updateExpenseEntity);
+        return mapToExpenseDTO(updateExpenseEntity);
+    }
+
     /**
      * Mapper method to map values from Expense request to expense dto
      * @param expenseDTO the source DTO
