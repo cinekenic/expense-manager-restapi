@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -63,6 +64,29 @@ public class ExpenseServiceImpl implements ExpenseService {
        ExpenseEntity expenseEntity =  getExpenseEntity(expenseId);
        log.info("Printing the expense entity: {}", expenseEntity);
        expenseRepository.delete(expenseEntity);
+    }
+
+    /**
+     * It will save the expense details to database
+     * @param expenseDTO the DTO containing expense data
+     *  * @return ExpenseDTO the saved expense DTO
+     */
+    @Override
+    public ExpenseDTO saveExpenseDetails(ExpenseDTO expenseDTO) {
+        ExpenseEntity newExpenseEntity = mapToExpenseEntity(expenseDTO);
+//        newExpenseEntity.setExpenseId(UUID.randomUUID().toString());
+        newExpenseEntity = expenseRepository.save(newExpenseEntity);
+        log.info("Printing the new expense entity details {}", newExpenseEntity);
+        return mapToExpenseDTO(newExpenseEntity);
+    }
+
+    /**
+     * Mapper method to map values from Expense request to expense dto
+     * @param expenseDTO the source DTO
+     * @return mapped ExpenseEntity
+     */
+    private ExpenseEntity mapToExpenseEntity(ExpenseDTO expenseDTO) {
+        return modelMapper.map(expenseDTO, ExpenseEntity.class);
     }
 
     /**
