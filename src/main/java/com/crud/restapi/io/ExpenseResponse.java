@@ -16,7 +16,7 @@ import java.util.Date;
 public class ExpenseResponse {
     private String expenseId;
     private String name;
-    private String description;
+    private String note;
     private String category;
     private Date date;
     private BigDecimal amount;

@@ -22,7 +22,7 @@ public class ExpenseRequest {
             message = "Expense name should be at least 3 characters"
     )
     private String name;
-    private String description;
+    private String note;
     @NotBlank(message = "Expense category is required")
     private String category;
     @NotNull(message = "Expense date is required")
