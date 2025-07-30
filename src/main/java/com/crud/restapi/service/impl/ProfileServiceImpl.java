@@ -2,6 +2,7 @@ package com.crud.restapi.service.impl;
 
 import com.crud.restapi.dto.ProfileDTO;
 import com.crud.restapi.entity.ProfileEntity;
+import com.crud.restapi.exceptions.ItemExistsException;
 import com.crud.restapi.repository.ProfileRepository;
 import com.crud.restapi.service.ProfileService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,9 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ProfileDTO createProfile(ProfileDTO profileDTO) {
+        if (profileRepository.existsByEmail(profileDTO.getEmail())) {
+            throw new ItemExistsException("Email " + profileDTO.getEmail() + " already exists");
+        }
         profileDTO.setPassword(encoder.encode(profileDTO.getPassword()));
         // Mapowanie DTO -> Entity
         ProfileEntity profileEntity = mapToProfileEntity(profileDTO);
