@@ -37,7 +37,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         //Call the repository method
         Long loggedInProfileId = authService.getLoggedProfile().getId();
         List<ExpenseEntity> list = expenseRepository.findByOwnerId(loggedInProfileId);
-        log.info("Printing the data from repository: {}", list);
+        log.info("Printing the data from repository: {}", list.size() );
 
         //convert the Entity object to DTO object
        List<ExpenseDTO> listOfExpenses = list.stream().map(expenseEntity -> mapToExpenseDTO(expenseEntity)).collect(Collectors.toList());

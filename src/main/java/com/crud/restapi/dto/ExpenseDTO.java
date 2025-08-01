@@ -22,4 +22,5 @@ public class ExpenseDTO {
     private BigDecimal amount;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private Long ownerId;
 }
