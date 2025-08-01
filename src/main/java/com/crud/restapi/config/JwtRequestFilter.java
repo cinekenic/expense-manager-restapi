@@ -1,6 +1,7 @@
 package com.crud.restapi.config;
 
 import com.crud.restapi.service.CustomUserDetailsService;
+import com.crud.restapi.service.TokenBlackListService;
 import com.crud.restapi.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -26,6 +27,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    @Autowired
+    private TokenBlackListService tokenBlackListService;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -36,6 +40,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
              jwtToken = requestTokenHeader.substring(7);
+
+           if (jwtToken != null && tokenBlackListService.isTokenBlacklisted(jwtToken)) {
+               response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+               return;
+           }
 
              try {
            email = jwtTokenUtil.getUsernameFromToken(jwtToken);
