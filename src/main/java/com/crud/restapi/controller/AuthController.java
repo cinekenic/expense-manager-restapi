@@ -29,7 +29,7 @@ import java.util.UUID;
 //@RequestMapping("/api/v1")
 @Slf4j
 @RequiredArgsConstructor
-//@CrossOrigin(origins = "https://cinekenic.github.io")
+@CrossOrigin(origins = "https://cinekenic.github.io")
 public class AuthController {
 
     private final ModelMapper modelMapper;
