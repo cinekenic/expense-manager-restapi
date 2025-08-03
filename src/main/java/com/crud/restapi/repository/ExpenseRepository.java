@@ -3,6 +3,8 @@ package com.crud.restapi.repository;
 import com.crud.restapi.entity.ExpenseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,4 +24,10 @@ public interface ExpenseRepository extends JpaRepository<ExpenseEntity, Long> {
     List<ExpenseEntity> findByOwnerId(Long id);
 
     Optional<ExpenseEntity> findByOwnerIdAndExpenseId(Long id, String expenseId);
+
+    List<ExpenseEntity> findAllByOwnerIdAndDateBetween(Long ownerId, Date dateAfter, Date dateBefore);
+
+    List<ExpenseEntity> findAllByDateBetween(Date dateAfter, Date dateBefore);
+
+    List<ExpenseEntity> findByDate(LocalDate date);
 }

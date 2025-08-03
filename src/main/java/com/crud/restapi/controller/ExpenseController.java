@@ -1,14 +1,17 @@
 package com.crud.restapi.controller;
 
+import com.crud.restapi.dto.DailySummaryDTO;
 import com.crud.restapi.dto.ExpenseDTO;
 import com.crud.restapi.io.ExpenseRequest;
 import com.crud.restapi.io.ExpenseResponse;
+import com.crud.restapi.service.DailyExpenseSummaryScheduler;
 import com.crud.restapi.service.ExpenseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +27,7 @@ public class ExpenseController {
 
     private final ExpenseService expenseService;
     private final ModelMapper modelMapper;
+    private final DailyExpenseSummaryScheduler dailyExpenseSummaryScheduler;
 
     /**
      * It will fetch the expenses from database
@@ -117,5 +121,11 @@ public class ExpenseController {
  * */
     private ExpenseResponse mapToExpenseResponse(ExpenseDTO expenseDTO) {
         return modelMapper.map(expenseDTO, ExpenseResponse.class);
+    }
+
+    @GetMapping("/reports/daily-summary")
+    public ResponseEntity<DailySummaryDTO> triggerDailySummary() {
+        dailyExpenseSummaryScheduler.sendDailySummariesToAllUsers();
+        return ResponseEntity.ok().build();
     }
 }
